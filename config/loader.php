@@ -16,4 +16,18 @@ class Loader
             spl_autoload($modulo);
         }
     } 
+
+
+    static public function load_view($view = null, $data = null)
+    {
+        if(!empty($data)):
+            foreach($data as $key => $row):
+                $$key = $row;
+            endforeach;
+        endif;
+
+        if ($view):
+            require_once TEMPLATE . $view . '.php';
+        endif;
+    } 
 }

@@ -1,5 +1,4 @@
 <?php
-require_once 'loader.php';
 
 class Route
 {
@@ -15,7 +14,7 @@ class Route
 		endif;
     }
 
-    public function submit()
+    public function init()
     {
 		$uriGetParam = isset($_GET['uri']) ? '/' . $_GET['uri']:'/';
 

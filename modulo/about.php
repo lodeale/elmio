@@ -1,8 +1,13 @@
 <?php 
 
-class About
+class About extends Modulos
 {
-	public function __construct(){
-		echo "Estoy en About jeje";
+
+	public function index(){
+		echo "Estoy en About...";
 	}
 }
+
+
+/* End of file about.php */
+/* Location: .//var/www/ELMIO/modulo/about.php */
