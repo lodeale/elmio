@@ -13,6 +13,7 @@
 	define("DB_NAME","name_db");
 	define("DB_ENGINE","mysql");
 	
+	
 
 	/**
 	* Rutas del Config, Modulos, View, Libreria

@@ -7,7 +7,7 @@ class Inicio extends Modulos
 	}
 
 	public function index(){
-		$data["user"] = R::getAll('select * from user');
+		$data["user"] = array( array( 'id' => 1, 'name' => 'ale', 'password' => '1234', 'email' => 'tito@pp.com' ) );
 		$this->load_view("header");
 		$this->load_view("inicio/listar",$data);
 		$this->load_view("footer");

@@ -6,9 +6,9 @@
 	</tr>
 	<?php foreach($user as $row):?>
 	<tr>
-		<td><?php echo $row['login']; ?></td>	
-		<td><?php echo $row['passwrod']; ?></td>	
-		<td><?php echo $row['email']; ?></td>	
+		<td><?php echo $row['name']; ?></td>	
+		<td><?php echo $row['password']; ?></td>	
+		<td><?php echo $row['email']; ?></td>
 	</tr>
 	<?php endforeach; ?>
 </table>
