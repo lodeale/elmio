@@ -1,12 +1,12 @@
 <?php 
 
 class Modulos extends Loader {
-
+    /**
 	public function __construct()
 	{
-		$this->index();
+	    $this->index();
 	}
-
+    */
 }
 
 /* End of file modulos.php */

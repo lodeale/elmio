@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Loader para la carga los modulos
+* Loader para la carga los modulos y vistas
 */
 class Loader
 {

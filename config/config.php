@@ -1,8 +1,9 @@
 <?php 
 	/**
-	* Carga la ruta del sistema
+	* Carga la ruta del sistema por url y por sistema
 	*/
-	define("URL_BASE","http://127.0.0.1/ELMIO/");
+    define("URL_BASE","http://127.0.0.1/ELMIO/");
+    define("PATH_ROOT",realpath(dirname(__FILE__)) . '/../'); 
 
 	/**
 	* Carga los datos para la base de datos
@@ -25,7 +26,13 @@
 	define('LIBRARIES', dirname(__FILE__) . "/.." . '/libraries/');
 
 	//Modulo
-	define('MODULO', dirname(__FILE__) . "/.." . '/modulo/');
+	define('MODULO', dirname(__FILE__) . "/.." . '/modulos/');
 
 	//View
-	define("TEMPLATE", dirname(__FILE__) . "/.." .'/view/');
+    define("TEMPLATE", dirname(__FILE__) . "/.." .'/view/');
+
+
+    /**
+     * Se define el controlador por default 
+     */ 
+    define('DEFAULT_CONTROLLER', 'inicio');

@@ -3,34 +3,60 @@
 class Route
 {
     private $_uri = array();
-    private $_method = array();
-    
-    
-    public function add($uri, $method = null)
-    {
-		$this->_uri[] = '/' . trim($uri, '/');
-		if($method != null):
-		    $this->_method[] = $method;
-		endif;
+
+    private $_controller;
+    private $_method;
+    private $_arguments; 
+
+
+    public function __construct(){     
+            if (isset($_GET["uri"])) {
+                $url = filter_input(INPUT_GET, 'uri', FILTER_SANITIZE_URL);
+                $url = explode('/', $url);
+                $url = array_filter($url);
+            }    
+           
+            $this->_controller = array_shift($url);
+            $this->_method = array_shift($url);
+            $this->_arguments = $url;
+
+            if(!$this->_controller){
+                $this->_controller = DEFAULT_CONTROLLER;
+            }
+            
+            if (!$this->_method) {
+                $this->_method = 'index';
+            }
+             
+            if (!isset($this->_arguments)) {
+                $this->_arguments = array();
+            }
+
     }
 
+    
     public function init()
     {
-		$uriGetParam = isset($_GET['uri']) ? '/' . $_GET['uri']:'/';
+        $pathController = PATH_ROOT . 'modulos/' . $this->_controller . '.php';
+        if (is_readable($pathController)) {
+            require_once $pathController;
 
-		foreach($this->_uri as $key => $value):
-		    if(preg_match("#^$value$#", $uriGetParam)):
-				if(is_string($this->_method[$key])):
+            $c = new $this->_controller; 
 
-				    $useMethod = $this->_method[$key];
-					
-					Loader::load_modulo($useMethod);
+            if(is_callable(array($this->_controller, $this->_method))){
+                $method = $this->_method;
+            }else{
+                $method = 'index';
+            }
 
-				    new $useMethod();
-				else:
-				    call_user_func($this->_method[$key]);
-				endif;
-		    endif;
-		endforeach;
+            if (!empty($this->_arguments)) {
+                call_user_func_array( array($this->_controller, $method), $this->_arguments);
+            }else{
+                call_user_func( array($this->_controller, $method) );
+            }
+        }else{
+            throw new Exception('El controlador no Existe!');
+        }
+
     }
 }
