@@ -1,7 +1,5 @@
 <?php
 
-require_once 'config.php';
-
 /**
 * Loader para la carga los modulos
 */
