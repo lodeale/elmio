@@ -13,12 +13,12 @@ class Route
             if (isset($_GET["uri"])) {
                 $url = filter_input(INPUT_GET, 'uri', FILTER_SANITIZE_URL);
                 $url = explode('/', $url);
-                $url = array_filter($url);
-            }    
+                $url = array_filter($url);    
            
-            $this->_controller = array_shift($url);
-            $this->_method = array_shift($url);
-            $this->_arguments = $url;
+                $this->_controller = array_shift($url);
+                $this->_method = array_shift($url);
+                $this->_arguments = $url;
+            }
 
             if(!$this->_controller){
                 $this->_controller = DEFAULT_CONTROLLER;
