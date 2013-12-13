@@ -1,13 +1,7 @@
-<?php
-	require_once 'config/config.php';
-	require_once 'config/loader.php';
-	require_once 'config/route.php';
-	
-	/**
-	* Conexión a la base de datos con ORM
-	*/
-	require_once LIBRARIES . "/rb.php";
-	R::setup(DB_ENGINE . ':host=' . HOST . ";dbname=" . DB_NAME, USER, PASS);
+<?php 
+    require_once 'core/init.php';
+
+    R::setup(Config::get('mysql/engine') . ':host=' . Config::get('mysql/host') . ";dbname=" . Config::get('mysql/db'), Config::get('mysql/user'), Config::get('mysql/password'));
 
     try{    
         $route = new Route();
