@@ -31,6 +31,6 @@ spl_autoload_register(function($class){
 
 
 /**
-* Conexión a la base de datos con ORM
+* Conexión a la base de datos
 */
-require_once "libraries/rb.php";
+require_once "libraries/DB.php";
