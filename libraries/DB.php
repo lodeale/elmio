@@ -10,7 +10,7 @@ class DB
             $_count = 0;
 
     
-    private function __construct()
+    public function __construct()
     {
         try {
             $this->_pdo = new PDO('mysql:host=' . Config::get('mysql/host') . ';dbname=' . Config::get('mysql/db'), Config::get('mysql/user'), Config::get('mysql/password'));
@@ -38,7 +38,7 @@ class DB
                     $x++;
                 }
             }
-            
+        
             if($this->_query->execute()){
                 if($obj){
                     $this->_results = $this->_query->fetchAll(PDO::FETCH_OBJ);
@@ -136,34 +136,23 @@ class DB
     }
 
 
-    /*
-     * En proceso 
-     */ 
-    public function findOne($table, $fields = array()){
-        if (count($fields)) {
-            $keys = array_keys($fields);
-            $where = null;
-            $x = 1;
-            
-            foreach($fields as $field => $value){
-                $operator_exist = explode(' ',trim($field));
-                if(count($operator_exist) == 2):
-                    $where .= " {$field} '?' ";
-                    if($x < count($fields))
-                        $where .= 'AND';
-                    $x++;
-                else:
-                    $where .= " {$field} = '?' ";
-                    if($x < count($fields))
-                        $where .= 'AND';
-                    $x++;
-                endif;
-            }
+    public function find($table, $fields = array(), $type_output = true){
+        $values = array();
+        $where = "";
+        $x = 1;
 
-            $sql = "SELECT * FROM {$table} WHERE {$where}";
-            if(!$this->query($sql, $fields)->error()){               
-                return $this->_results;
+        do{
+            $where .= " {$fields[$x-1]} LIKE ? ";
+            $values[] = "%$fields[$x]%";
+            if($x < count($fields)/2){
+                $where .= " AND  ";
             }
+        }while($x < count($fields)/2);
+
+        $sql = "SELECT * FROM {$table} WHERE {$where}";
+        
+        if(!$this->query($sql, $values, $type_output)->error()){
+            return $this;
         }
         return false;
     }
