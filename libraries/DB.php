@@ -136,18 +136,19 @@ class DB
     }
 
 
-    public function find($table, $fields = array(), $type_output = true){
+    public function find($table, $fields = array(), $type_output = true, $op = "AND"){
         $values = array();
         $where = "";
-        $x = 1;
+        $x = 0;
 
-        do{
-            $where .= " {$fields[$x-1]} LIKE ? ";
-            $values[] = "%$fields[$x]%";
-            if($x < count($fields)/2){
-                $where .= " AND  ";
+        foreach($fields as $key => $row){
+            $x++;
+            $where .= " {$key} LIKE ?";
+            $values[] = "%{$row}%";
+            if($x < count($fields)){
+                $where .= " {$op} ";
             }
-        }while($x < count($fields)/2);
+        }
 
         $sql = "SELECT * FROM {$table} WHERE {$where}";
         
