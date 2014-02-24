@@ -2,6 +2,7 @@
 session_start();
 
 define('URL_BASE','http://localhost/ELMIO/');
+define('ENVIRONMENT','dev');
 
 $GLOBALS['config'] = array(
     'path' => array(
@@ -21,8 +22,8 @@ $GLOBALS['config'] = array(
     ),
     'remember' => array(),
     'session' => array(
-        "session_name"=>"user",
-        "token_name" => "token"
+        'session_name'=>'user',
+        'token_name' => 'token'
     )
 );
 
@@ -32,8 +33,16 @@ spl_autoload_register(function($class){
     }
 });
 
-
+if(ENVIRONMENT=='dev'){
+    ini_set('display_errors', 'On');
+    error_reporting(E_ALL | E_STRICT);
+}else{
+    error_reporting(0);
+    ini_set('log_errors',1);
+    ini_set('error_log','tmp/php-error.log');
+    error_log('ERRORES');
+}
 /**
 * Conexión a la base de datos
 */
-require_once "libraries/DB.php";
+require_once 'libraries/DB.php';
