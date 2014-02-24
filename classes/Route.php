@@ -51,13 +51,13 @@ class Route
             }
 
             if (!empty($this->_arguments)) {
-                call_user_func_array( array($this->_controller, $method), $this->_arguments);
+                call_user_func_array( array($c, $method), $this->_arguments);
             }else{
-                call_user_func( array($this->_controller, $method) );
+                call_user_func( array($c, $method), $c);
             }
-        }else{
-            throw new Exception('El Modulo no Existe!');
-        }
 
+        }else{
+            header("HTTP/1.0 404 Not Found");
+        }
     }
 }
