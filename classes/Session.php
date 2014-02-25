@@ -1,6 +1,7 @@
 <?php 
 
-class Session{
+class Session
+{
 
     public static function exists($name){
         return isset($_SESSION[$name]);
