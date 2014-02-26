@@ -21,7 +21,7 @@ class Route
             }
             
             if(!$this->_controller){
-                $this->_controller = Config::get('path/default_modulo');
+                $this->_controller = originalConfig\Config::get('path/default_modulo');
             }
             
             if (!$this->_method) {
@@ -37,7 +37,7 @@ class Route
     
     public function init()
     {
-        $pathController = Config::get('path/root') . 'modulos/' . $this->_controller . '.php';
+        $pathController = originalConfig\Config::get('path/root') . 'modulos/' . $this->_controller . '.php';
         
         if (is_readable($pathController)) {
             require_once $pathController;

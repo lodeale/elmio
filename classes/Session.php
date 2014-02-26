@@ -1,5 +1,5 @@
-<?php 
-
+<?php
+namespace originalSession;
 class Session
 {
 
@@ -7,7 +7,12 @@ class Session
         return (isset($_SESSION[$name]));
     }
 
-    public static function put($name, $value){
+  public static function __callStatic($name, $arguments)
+  {
+    // TODO: Implement __callStatic() method.
+  }
+
+  public static function put($name, $value){
         return $_SESSION[$name] = $value;
     }
 

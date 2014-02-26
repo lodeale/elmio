@@ -9,7 +9,7 @@ class Loader
 	static public function load_modulo($modulo)
     {
         if ($modulo) {
-            set_include_path(Config::get('path/modulos'));
+            set_include_path(originalConfig\Config::get('path/modulos'));
             spl_autoload_extensions('.php');
             spl_autoload($modulo);
         }
@@ -28,10 +28,10 @@ class Loader
 
         if (sizeof($views) > 0):
             foreach ($views as $v) {
-                require_once Config::get('path/view') . $v . '.php';
+                require_once originalConfig\Config::get('path/view') . $v . '.php';
             }
         else:
-            require_once Config::get('path/view') . $view . '.php';
+            require_once originalConfig\Config::get('path/view') . $view . '.php';
         endif;
     } 
 }
